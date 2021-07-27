@@ -1,0 +1,1 @@
+web: gunicorn startvest_api.wsgi --log-file -

@@ -23,12 +23,12 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = env('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['https://startvest-test-project.uc.r.appspot.com/', 'https://okorite-test.uc.r.appspot.com/', 'localhost']
+ALLOWED_HOSTS = ['localhost', 'startvest.herokuapp.com', 'startvest-staging.herokuapp.com']
 
 
 # Application definition
@@ -129,11 +129,11 @@ REST_SESSION_LOGIN = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env.str('DB_NAME'),
-        'USER': env.str('DB_USER'),
-        'PASSWORD': env.str('DB_PASS'),
-        'HOST': '',
-        'PORT': env.str('DB_PORT'),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASS"),
+        'HOST': "",
+        'PORT': env("DB_PORT"),
     }
 }
 
@@ -185,3 +185,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# try:
+#     from local_settings import *
+# except ImportError:
+#     pass
