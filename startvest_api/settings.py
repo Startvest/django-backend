@@ -73,7 +73,6 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     ),
@@ -185,7 +184,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# try:
-#     from local_settings import *
-# except ImportError:
-#     pass
+try:
+    from local_settings import *
+except ImportError:
+    pass
