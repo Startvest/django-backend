@@ -158,7 +158,7 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Africa/Lagos'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
