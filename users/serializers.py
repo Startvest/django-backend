@@ -2,9 +2,9 @@ from rest_framework import serializers
 from .models import User, user_type
 
 class UserSerializer(serializers.ModelSerializer):
-    username = None
     class Meta:
         model = User
+        username = None
         fields = ('email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
     
