@@ -5,7 +5,7 @@ from .models import Investor, Investment
 class InvestmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Investment
-        fields = ['registered_business', 'interests', 'verified']
+        fields = '__all__'
 
     
 class InvestorSerializer(serializers.ModelSerializer):
