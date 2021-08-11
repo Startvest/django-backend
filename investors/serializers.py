@@ -10,6 +10,6 @@ class InvestmentSerializer(serializers.ModelSerializer):
 class InvestorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Investor
-        fields = ['registered_business', 'interests', 'verified', 'investments']
+        fields = '__all__'
     
     investments = InvestmentSerializer(many=True, read_only=True)
