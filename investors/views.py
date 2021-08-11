@@ -50,7 +50,7 @@ def create_investor(request, uid):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
    
     user = user_type(is_investor=True, user=user)
-    serializer = InvestorRegisterSerializer(user, data=request.data)
+    serializer = InvestorCreateSerializer(user, data=request.data)
     data = {}
     if serializer.is_valid():
         serializer.save()

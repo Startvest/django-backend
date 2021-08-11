@@ -17,6 +17,4 @@ class InvestorSerializer(serializers.ModelSerializer):
 
 
 class InvestorCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Investor
-        fields = ['registered_business', 'interests']
+    user = user
