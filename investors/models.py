@@ -6,6 +6,7 @@ from startups.models import Startup
 # Create your models here.
 class Investor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user_type = models.OneToOneField(user_type, on_delete=models.CASCADE, null=True)
     registered_business = models.BooleanField(default=False)
     interests = ArrayField(models.CharField(max_length=200), blank=True)
     verified = models.BooleanField(default=False)
