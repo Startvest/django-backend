@@ -5,7 +5,6 @@ from rest_framework.decorators import api_view
 
 from django.shortcuts import get_object_or_404
 
-from users.models import User, user_type
 from .models import Investor, Investment
 from .serializers import InvestorSerializer
 
@@ -49,8 +48,8 @@ def create_investor(request, uid):
     except User.DoesNotExist:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
    
-    user_t = user_type(is_investor=True, user=user)
-    serializer = InvestorSerializer(user, user_t, data=request.data)
+    user = user_type(is_investor=True, user=user)
+    serializer = InvestorSerializer(user, data=request.data)
     data = {}
     if serializer.is_valid():
         serializer.save()
