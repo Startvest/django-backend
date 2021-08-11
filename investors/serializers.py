@@ -21,7 +21,7 @@ class InvestorCreateSerializer(serializers.ModelSerializer):
         model = Investor
         fields = ['registered_business', 'interests']
 
-    def save(self, request):
-        investor = super().save(request)
-        investor.save()
-        return investor
+    # def save(self, request):
+    #     investor = super().save(request)
+    #     investor.save()
+    #     return investor
