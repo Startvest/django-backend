@@ -14,3 +14,7 @@ class InvestorSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     investments = InvestmentSerializer(many=True, read_only=True)
+
+
+class InvestorCreateSerializer(serializers.ModelSerializer):
+    user = user
