@@ -51,9 +51,10 @@ def create_investor(request, uid):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
    
     try:
-        user = user_type(is_investor=True, user=user)
-    except IntegrityError:
         user = user_type.objects.get(pk=uid)
+    except user_type.DoesNotExist:
+        user = user_type(is_investor=True, user=user)
+        
     serializer = InvestorCreateSerializer(user, data=request.data)
     data = {}
     if serializer.is_valid():
