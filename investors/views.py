@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from django.shortcuts import get_object_or_404
+from django.db import IntegrityError
 
 from users.models import User, user_type
 from .models import Investor, Investment
