@@ -67,6 +67,6 @@ class user_type(models.Model):
 
     def __str__(self):
         if self.is_investor == True:
-            return User.get_email(self.user) + " - is_investor"
+            return str(User.get_email(self.user) + " - is_investor")
         else:
-            return User.get_email(self.user) + " - is_startup"
+            return str(User.get_email(self.user) + " - is_startup")
