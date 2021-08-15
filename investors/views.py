@@ -8,7 +8,7 @@ from django.db import IntegrityError
 
 from users.models import User, user_type
 from .models import Investor, Investment
-from .serializers import InvestorSerializer, InvestorCreateSerializer
+from .serializers import InvestorSerializer
 
 from startups.models import Startup
 
