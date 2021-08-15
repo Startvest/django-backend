@@ -35,12 +35,19 @@ class StartupsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
 def create_startup(request, uid):
     try:
         user = User.objects.get(pk=uid)
+        try:
+            user = user_type.objects.get(user=uid)
+        except user_type.DoesNotExist:
+            user = user_type(is_startup=True, user=user)
+            user.save()
     except User.DoesNotExist:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
    
-    user = user_type(is_startup=True, user=user)
-    serializer = StartupSerializer(user, data=request.data)
-    data = {}
+
+    data = request.data.copy()
+    data['user'] = user.user
+
+    serializer = StartupSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

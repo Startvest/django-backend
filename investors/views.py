@@ -4,7 +4,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from django.shortcuts import get_object_or_404
+from django.db import IntegrityError
 
+from users.models import User, user_type
 from .models import Investor, Investment
 from .serializers import InvestorSerializer
 
@@ -45,12 +47,18 @@ class InvestorsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
 def create_investor(request, uid):
     try:
         user = User.objects.get(pk=uid)
+        try:
+            user = user_type.objects.get(user=uid)
+        except user_type.DoesNotExist:
+            user = user_type(is_investor=True, user=user)
+            user.save()
     except User.DoesNotExist:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
-   
-    user = user_type(is_investor=True, user=user)
-    serializer = InvestorSerializer(user, data=request.data)
-    data = {}
+
+    data = request.data.copy()
+    data['user'] = user.user
+
+    serializer = InvestorSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
