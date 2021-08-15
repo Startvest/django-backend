@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from users.models import user_type
 from .models import Investor, Investment
 
 

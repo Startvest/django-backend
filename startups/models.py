@@ -1,6 +1,13 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from users.models import user_type
+import datetime
+
+def year_choices():
+    return [(r, r) for r in range(1984, datetime.date.today().year+1)]
+
+def current_year():
+    return datetime.date.today().year
 
 # Create your models here.
 class Startup(models.Model):
@@ -15,15 +22,23 @@ class Startup(models.Model):
         ('C2B', 'B2B'),
         ('C2C', 'C2C'),
     )
+    FUNDING_STAGE = (
+        ('Pre-seed', 'Pre-seed'),
+        ('Series A', 'Series A'),
+        ('Series B', 'Series B'),
+        ('Series C', 'Series C'),
+    )
     website = models.CharField(max_length=200)
     registered = models.BooleanField()
-    logo = models.ImageField(upload_to=f'startups/logos')
+    logo = models.ImageField(upload_to=f'startups/logos', null=True)
     team = ArrayField(models.CharField(max_length=300), blank=True)
     work_benefits = ArrayField(models.CharField(max_length=400), blank=True)
     pitch = models.FileField(upload_to=f'startups/pitches', null=True)
     category = ArrayField(models.CharField(max_length=200))
     business_model = models.CharField(max_length=200, choices=BUSINESS_MODEL, default='B2C')
     balance = models.FloatField(default=0)
+    year_established = models.IntegerField(choices=year_choices(), default=current_year())
+    funding_stage = models.CharField(max_length=200, choices=FUNDING_STAGE, default='Pre-seed')
 
     def __str__(self):
         return self.company_name
