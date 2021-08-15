@@ -9,9 +9,12 @@ class Investor(models.Model):
     registered_business = models.BooleanField(default=False)
     interests = ArrayField(models.CharField(max_length=200), blank=True)
     verified = models.BooleanField(default=False)
+    name = models.CharField(max_length=300, default="Investor")
+    profile_pic = models.ImageField(upload_to=f'investors/profile_pics', null=True)
+    detail = models.TextField(null=True)
 
     def __str__(self):
-        return self.user
+        return self.user.user.email
 
 
 class Investment(models.Model):

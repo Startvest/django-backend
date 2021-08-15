@@ -47,16 +47,18 @@ class InvestorsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
 def create_investor(request, uid):
     try:
         user = User.objects.get(pk=uid)
+        try:
+            user = user_type.objects.get(user=uid)
+        except user_type.DoesNotExist:
+            user = user_type(is_investor=True, user=user)
+            user.save()
     except User.DoesNotExist:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
-   
-    try:
-        user = user_type.objects.get(pk=uid)
-    except user_type.DoesNotExist:
-        user = user_type(is_investor=True, user=user)
-        
-    serializer = InvestorCreateSerializer(user, data=request.data)
-    data = {}
+
+    data = request.data.copy()
+    data['user'] = user.user
+
+    serializer = InvestorSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

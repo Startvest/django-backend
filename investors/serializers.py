@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from users.models import user_type
 from .models import Investor, Investment
 
 
@@ -14,14 +15,3 @@ class InvestorSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     investments = InvestmentSerializer(many=True, read_only=True)
-
-
-class InvestorCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Investor
-        fields = ['registered_business', 'interests']
-
-    # def save(self, request):
-    #     investor = super().save(request)
-    #     investor.save()
-    #     return investor

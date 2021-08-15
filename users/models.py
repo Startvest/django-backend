@@ -63,7 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class user_type(models.Model):
     is_investor = models.BooleanField("investor", default=False)
     is_startup = models.BooleanField("startup", default=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
         if self.is_investor == True:
