@@ -1,9 +1,8 @@
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
     path('', include('dj_rest_auth.urls')),
-    path('registration/', include('dj_rest_auth.registration.urls'))
+    path('registration/', include('dj_rest_auth.registration.urls')),
+    path('create_user_type/<int:uid>', views.create_user_type),
 ]
-
-
-# 92586d94c3382b5ec174ad2f740490c3fc62dc9d

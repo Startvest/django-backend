@@ -57,6 +57,7 @@ def create_investor(request, uid):
 
     data = request.data.copy()
     data['user'] = user.user
+    data['name'] = user.name
 
     serializer = InvestorSerializer(data=data)
     if serializer.is_valid():

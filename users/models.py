@@ -64,6 +64,7 @@ class user_type(models.Model):
     is_investor = models.BooleanField("investor", default=False)
     is_startup = models.BooleanField("startup", default=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    name = models.CharField(max_length=300, default="User")
 
     def __str__(self):
         if self.is_investor == True:
