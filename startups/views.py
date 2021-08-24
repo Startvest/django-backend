@@ -34,6 +34,17 @@ class StartupsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     lookup_fields = ['user_id']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+class JobsList(generics.ListAPIView):
+    queryset = JobOpening.objects.all()
+    serializer_class = JobOpeningSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+class JobsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
+    queryset = JobOpening.objects.all()
+    serializer_class = JobOpeningSerializer
+    lookup_fields = ['user_id']
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 @api_view(['POST', ])
 def create_startup(request, uid):
     try:

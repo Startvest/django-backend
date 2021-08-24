@@ -9,4 +9,6 @@ urlpatterns = [
     path('<int:uid>/create', views.create_startup, name="create_startup"),
     path('<int:uid>/update', views.update_startup_info, name="update_startup"),
     path('<int:uid>/withtdraw', views.withdraw, name="withdraw"),
+    path('viewjobs/', views.JobsList.as_view(), name="jobs_list"),
+    path('viewjobs/<int:user_id', views.JobsInfo, name="view_job"),
 ]
