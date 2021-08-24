@@ -15,6 +15,11 @@ class UserTypeSerializer(serializers.ModelSerializer):
         model = user_type
         fields = '__all__'
 
+class GetUserTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = user_type
+        fields = '__all__'
+
     user = UserSerializer(many=False, read_only=True)
 
 

@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 
 from .models import User, user_type
-from .serializers import UserTypeSerializer
+from .serializers import UserTypeSerializer, GetUserTypeSerializer
 
 from startups.views import MultipleFieldLookupMixin
 
@@ -22,7 +22,7 @@ def create_user_type(request, uid):
    
 
     data = request.data.copy()
-    data['user'] = user.pk
+    data['user'] = user.id
 
     serializer = UserTypeSerializer(data=data)
     if serializer.is_valid():
@@ -32,5 +32,5 @@ def create_user_type(request, uid):
 
 class UserTypeInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = user_type.objects.all()
-    serializer_class = UserTypeSerializer
+    serializer_class = GetUserTypeSerializer
     lookup_fields = ['user_id']
