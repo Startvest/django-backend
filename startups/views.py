@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 
 from .models import Startup, JobOpening
-from .serializers import StartupSerializer, JobOpeningSerializer
+from .serializers import GetStartupSerializer, StartupSerializer, JobOpeningSerializer
 from users.models import User, user_type
 
 class MultipleFieldLookupMixin:
@@ -24,7 +24,7 @@ class MultipleFieldLookupMixin:
 
 class StartupsList(generics.ListAPIView):
     queryset = Startup.objects.all()
-    serializer_class = StartupSerializer
+    serializer_class = GetStartupSerializer
 
 class StartupsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = Startup.objects.all()
@@ -42,7 +42,9 @@ def create_startup(request, uid):
             user.save()
     except User.DoesNotExist:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
-   
+
+    if user.is_startup == False:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     data = request.data.copy()
     data['user'] = user.user
@@ -64,7 +66,6 @@ def update_startup_info(request, uid):
     data = {}
     if serializer.is_valid():
         serializer.save()
-        data[SUCCESS] = UPDATE_SUCCESS
         return Response(data=data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -8,7 +8,7 @@ from django.db import IntegrityError
 
 from users.models import User, user_type
 from .models import Investor, Investment
-from .serializers import InvestorSerializer
+from .serializers import GetInvestorSerializer, InvestorSerializer, InvestmentSerializer
 
 from startups.models import Startup
 
@@ -34,12 +34,12 @@ class MultipleFieldLookupMixin:
 
 class InvestorsList(generics.ListAPIView):
     queryset = Investor.objects.all()
-    serializer_class = InvestorSerializer
+    serializer_class = GetInvestorSerializer
 
 
 class InvestorsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = Investor.objects.all()
-    serializer_class = InvestorSerializer
+    serializer_class = GetInvestorSerializer
     lookup_fields = ['user_id']
 
 
@@ -55,9 +55,11 @@ def create_investor(request, uid):
     except User.DoesNotExist:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+    if user.is_investor == False:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
     data = request.data.copy()
     data['user'] = user.user
-    data['name'] = user.name
 
     serializer = InvestorSerializer(data=data)
     if serializer.is_valid():

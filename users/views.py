@@ -5,12 +5,11 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from django.shortcuts import get_object_or_404
-
 from .models import User, user_type
-from .serializers import UserTypeSerializer, GetUserTypeSerializer
+from .serializers import UserTypeSerializer
 
 from startups.views import MultipleFieldLookupMixin
+from permissions import IsOwner
 
 # Create your views here.
 @api_view(['POST', ])
@@ -31,6 +30,7 @@ def create_user_type(request, uid):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserTypeInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
+    permission_classes = [IsOwner]
     queryset = user_type.objects.all()
-    serializer_class = GetUserTypeSerializer
+    serializer_class = UserTypeSerializer
     lookup_fields = ['user_id']
