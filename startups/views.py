@@ -42,7 +42,7 @@ class JobsList(generics.ListAPIView):
 class JobsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = JobOpening.objects.all()
     serializer_class = JobOpeningSerializer
-    lookup_fields = ['user_id']
+    lookup_fields = ['id']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 @api_view(['POST', ])
