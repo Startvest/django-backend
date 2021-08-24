@@ -22,7 +22,7 @@ def create_user_type(request, uid):
    
 
     data = request.data.copy()
-    data['user'] = uid
+    data['user'] = user.pk
 
     serializer = UserTypeSerializer(data=data)
     if serializer.is_valid():
