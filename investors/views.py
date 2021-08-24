@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from django.shortcuts import get_object_or_404
 
@@ -29,14 +29,14 @@ class MultipleFieldLookupMixin:
 class InvestorsList(generics.ListAPIView):
     queryset = Investor.objects.all()
     serializer_class = GetInvestorSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class InvestorsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = Investor.objects.all()
     serializer_class = GetInvestorSerializer
     lookup_fields = ['user_id']
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 @api_view(['POST', ])
