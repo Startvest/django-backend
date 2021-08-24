@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.premissions import AllowAny
 
 from django.shortcuts import get_object_or_404
 
@@ -25,11 +26,13 @@ class MultipleFieldLookupMixin:
 class StartupsList(generics.ListAPIView):
     queryset = Startup.objects.all()
     serializer_class = GetStartupSerializer
+    permission_classes = [AllowAny]
 
 class StartupsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = Startup.objects.all()
     serializer_class = StartupSerializer
     lookup_fields = ['user_id']
+    permission_classes = [AllowAny]
 
 @api_view(['POST', ])
 def create_startup(request, uid):
