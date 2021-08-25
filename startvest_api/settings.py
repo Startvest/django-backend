@@ -88,7 +88,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://www.startvest.io/',
+    'https://www.startvest.io',
 ]
 
 ROOT_URLCONF = 'startvest_api.urls'
