@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-# import environ
-from decouple import config, Csv
+from decouple import config
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -89,7 +88,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://startvest-test-project.uc.r.appspot.com'
+    'https://www.startvest.io',
 ]
 
 ROOT_URLCONF = 'startvest_api.urls'
