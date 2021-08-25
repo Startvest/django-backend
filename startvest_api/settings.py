@@ -88,7 +88,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://startvest-test-project.uc.r.appspot.com'
+    'https://www.startvest.io/',
 ]
 
 ROOT_URLCONF = 'startvest_api.urls'
