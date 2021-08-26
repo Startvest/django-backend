@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.shortcuts import get_object_or_404
 
 from .models import Startup, JobOpening
-from .serializers import GetStartupSerializer, StartupSerializer, JobOpeningSerializer
+from .serializers import GetJobOpeningSerializer, GetStartupSerializer, StartupSerializer, JobOpeningSerializer
 from users.models import User, user_type
 
 class MultipleFieldLookupMixin:
@@ -36,12 +36,12 @@ class StartupsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
 
 class JobsList(generics.ListAPIView):
     queryset = JobOpening.objects.all()
-    serializer_class = JobOpeningSerializer
+    serializer_class = GetJobOpeningSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 class JobsInfo(MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = JobOpening.objects.all()
-    serializer_class = JobOpeningSerializer
+    serializer_class = GetJobOpeningSerializer
     lookup_fields = ['id']
     permission_classes = [IsAuthenticatedOrReadOnly]
 
