@@ -1,4 +1,4 @@
-from users.serializers import GetUserTypeSerializer, UserSerializer, UserTypeSerializer
+from users.serializers import UserSerializer
 from rest_framework import serializers
 from .models import Startup, JobOpening, StartupGallery
 
@@ -18,6 +18,13 @@ class StartupSerializer(serializers.ModelSerializer):
         model = Startup
         fields = '__all__'
 
+class GetJobOpeningSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobOpening
+        fields = '__all__'
+
+    company = StartupSerializer(many=False, read_only=True)
+
 class GetStartupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Startup
@@ -25,4 +32,4 @@ class GetStartupSerializer(serializers.ModelSerializer):
 
     jobs = JobOpeningSerializer(many=True, read_only=True)
     gallery = StartupGallerySerializer(many=True, read_only=True)
-    user = GetUserTypeSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)

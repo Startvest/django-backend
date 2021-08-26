@@ -19,7 +19,7 @@ class Startup(models.Model):
     BUSINESS_MODEL = (
         ('B2C', 'B2C'),
         ('B2B', 'B2B'),
-        ('C2B', 'B2B'),
+        ('C2B', 'C2B'),
         ('C2C', 'C2C'),
     )
     FUNDING_STAGE = (
@@ -76,7 +76,7 @@ class JobOpening(models.Model):
         ('In Person', 'In Person'),
     )
     mode = models.CharField(max_length=200, choices=MODE, null=True)
-    extra_info = ArrayField(models.TextField())
+    extra_info = ArrayField(models.TextField(), blank=True)
 
     def __str__(self):
         return self.job_title + " -" + self.company.company_name
