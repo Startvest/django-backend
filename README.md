@@ -1,15 +1,8 @@
-# First phase of development of the Startvest project.
+## Startvest
+Starvest is modern equity crowdfunding platform
+More details coming soon...
 
-## Frontend code and resources will be stored in the frontend directory.
-The frontend app is available on [Google Cloud](https://startvest-test-project.uc.r.appspot.com/)
+# You can view the frontend of the app [here](https://startvest.io)
 
-To start the front end app, select the frontend folder and type
-```
-npm run client or yarn start
-```
-
-## Backend code and resources will be stored in the backend directory.
+## Backend code is stored in this repository.
 To expose the backend api publicly, go into the backend folder and type the following command into the console,
-```
-python manage.py runserver
-```
